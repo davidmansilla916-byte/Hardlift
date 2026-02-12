@@ -4,11 +4,12 @@ body {
     color: white;
     background-color: #0e0e0e;
 
-    /* patrón moderno tipo Gymshark */
+    /* Patrón moderno mantenido */
     background-image: 
         linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 40px 40px;
+    overflow-x: hidden; /* Evita scroll horizontal innecesario */
 }
 
 /* HERO */
@@ -19,6 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 20px; /* Padding de seguridad para móviles */
 
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
                 url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48");
@@ -27,13 +29,16 @@ body {
 }
 
 .hero h1 {
-    font-size: 80px;
+    /* Cambio: Tamaño fluido. Mínimo 40px, óptimo 8vw, máximo 80px */
+    font-size: clamp(40px, 8vw, 80px); 
     font-weight: 900;
     letter-spacing: 4px;
     margin: 0;
+    line-height: 1.1;
 }
 
 .hero p {
+    font-size: clamp(14px, 4vw, 18px);
     font-weight: 300;
     letter-spacing: 2px;
     margin-top: 10px;
@@ -47,6 +52,7 @@ body {
     color: white;
     transition: 0.3s;
     font-weight: 600;
+    display: inline-block; /* Asegura que el padding funcione bien */
 }
 
 .btn:hover {
@@ -56,20 +62,23 @@ body {
 
 /* PRODUCTOS */
 .productos {
-    padding: 80px 10%;
+    padding: 60px 5%; /* Reducido para mejor aprovechamiento de pantalla */
     text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .productos h2 {
-    font-size: 40px;
-    margin-bottom: 50px;
+    font-size: clamp(30px, 5vw, 40px);
+    margin-bottom: 40px;
     font-weight: 800;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    /* Mantenemos tu auto-fit, es la mejor opción */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
 }
 
 .card {
@@ -77,6 +86,7 @@ body {
     border-radius: 15px;
     overflow: hidden;
     transition: 0.4s;
+    border: 1px solid rgba(255,255,255,0.05); /* Sutil borde para definir la card */
 }
 
 .card img {
@@ -89,6 +99,7 @@ body {
     padding: 20px;
     font-weight: 600;
     letter-spacing: 1px;
+    font-size: 1.2rem;
 }
 
 .card:hover {
@@ -98,13 +109,13 @@ body {
 
 /* SOBRE */
 .sobre {
-    padding: 100px 10%;
+    padding: 80px 10%;
     text-align: center;
     background: #111;
 }
 
 .sobre h2 {
-    font-size: 35px;
+    font-size: clamp(28px, 4vw, 35px);
     font-weight: 800;
 }
 
@@ -113,49 +124,54 @@ body {
     margin: 20px auto;
     font-weight: 300;
     line-height: 1.6;
-    color: #ff0000;
+    color: #ffffff; /* Cambiado a blanco para legibilidad, cámbialo a rojo si prefieres */
 }
-/* CONTENEDOR FLOTANTE */
+
+/* CONTENEDOR FLOTANTE (Optimizado para móvil) */
 .social-float {
     position: fixed;
-    right: 20px;
-    bottom: 40px;
+    right: 15px;
+    bottom: 20px; /* Un poco más abajo en móviles */
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     z-index: 999;
 }
 
-/* ESTILO GENERAL BOTONES */
 .social-float a {
-    width: 65px;
-    height: 65px;
+    width: 55px; /* Ligeramente más pequeños para no estorbar tanto */
+    height: 55px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 24px;
     color: white;
     text-decoration: none;
     box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     transition: 0.3s ease;
 }
 
-/* WHATSAPP */
-.social-float .whatsapp {
-    background: #25D366;
-}
+/* WHATSAPP & INSTAGRAM MANTENIDOS */
+.social-float .whatsapp { background: #25D366; }
+.social-float .whatsapp:hover { background: #1ebe5d; transform: scale(1.1); }
+.social-float .instagram { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4); }
+.social-float .instagram:hover { transform: scale(1.1); }
 
-.social-float .whatsapp:hover {
-    background: #1ebe5d;
-    transform: scale(1.1);
-}
+/* --- MEDIA QUERIES PARA DETALLES --- */
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr; /* Una sola columna en móviles pequeños */
+        padding: 0 10px;
+    }
+    
+    .hero {
+        padding: 0 15px;
+    }
 
-/* INSTAGRAM */
-.social-float .instagram {
-    background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
-}
-
-.social-float .instagram:hover {
-    transform: scale(1.1);
+    .social-float a {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
 }

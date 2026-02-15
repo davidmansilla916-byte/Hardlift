@@ -1,89 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HardLift</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HardLift | Equipamiento Pro</title>
 
-<link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-<!-- Font Awesome -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-    <h1>HARDLIFT</h1>
-    <p>Equipamiento de alto rendimiento</p>
-    <a href="#productos" class="btn">VER PRODUCTOS</a>
-</section>
+    <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-<!-- PRODUCTOS -->
-<section id="productos" class="productos">
-    <h2>Nuestros Productos</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636414-MLA99538854604_122025-F.webp" alt="Straps">
-            <h3>Straps</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_793253-MLA72000166758_102023-F.webp" alt="Muñequeras">
-            <h3>Muñequeras</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://m.media-amazon.com/images/I/713VdnrukHL._AC_SL1500_.jpg" alt="Guantes">
-            <h3>Guantes</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_730416-CBT104893262920_012026-F.webp" alt="Cinturón">
-            <h3>Cinturones</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://www.suplementosnutricionalessalta.com.ar/public/images/productos/754-rodillera-negra-7-mm-x-unidad-talle-l.webp" alt="Rodilleras">
-            <h3>Rodilleras</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_734620-MLA98320362338_112025-F.webp" alt="Vendas">
-            <h3>Vendas</h3>
-        </div>
-
+    <div class="cart-btn-container" onclick="toggleCart()" role="button" aria-label="Ver carrito">
+        <i class="ph ph-shopping-cart"></i>
+        <span id="cart-count">0</span>
     </div>
-</section>
 
-<!-- SOBRE -->
-<section class="sobre">
-    <h2>Sobre HardLift</h2>
-    <p>
-        Diseñamos accesorios para quienes entrenan en serio.
-        Calidad, resistencia y estilo en cada repetición.
-    </p>
-</section>
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tu Pedido</h3>
+            <button onclick="toggleCart()" class="close-btn" aria-label="Cerrar carrito">&times;</button>
+        </div>
+        
+        <div id="cart-items"></div>
+        
+        <div class="cart-footer">
+            <p>Total: <span id="cart-total">$0</span></p>
+            <button class="btn-checkout">Finalizar Pedido</button>
+        </div>
+    </div>
 
-<!-- ICONOS REDES -->
-<div class="social-float">
-    <a href="https://wa.me/5493491507471" target="_blank" class="whatsapp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()" aria-label="Cerrar detalles">&times;</span>
+            <div id="modal-body">
+                </div>
+        </div>
+    </div>
 
-    <a href="https://www.instagram.com/hardlift_/" target="_blank" class="instagram">
-        <i class="fab fa-instagram"></i>
-    </a>
-</div>
+    <section class="hero">
+        <h1>HARDLIFT</h1>
+        <p>Equipamiento de alto rendimiento</p>
+        <a href="#productos" class="btn">VER PRODUCTOS</a>
+    </section>
 
-<!-- Font Awesome -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+    <section id="productos" class="productos">
+        <h2>Nuestros Productos</h2>
 
+        <div class="grid">
+            <div class="card">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_636414-MLA99538854604_122025-F.webp" alt="Straps HardLift" loading="lazy">
+                <h3>Straps</h3>
+                <button class="btn" onclick="verProducto('straps')">VER DETALLES</button>
+            </div>
 
+            <div class="card">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_793253-MLA72000166758_102023-F.webp" alt="Muñequeras Pro" loading="lazy">
+                <h3>Muñequeras</h3>
+                <button class="btn" onclick="verProducto('munequeras')">VER DETALLES</button>
+            </div>
 
+            <div class="card">
+                <img src="https://m.media-amazon.com/images/I/713VdnrukHL._AC_SL1500_.jpg" alt="Guantes Training" loading="lazy">
+                <h3>Guantes</h3>
+                <button class="btn" onclick="verProducto('guantes')">VER DETALLES</button>
+            </div>
 
+            <div class="card">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_730416-CBT104893262920_012026-F.webp" alt="Cinturón de Cuero" loading="lazy">
+                <h3>Cinturones</h3>
+                <button class="btn" onclick="verProducto('cinturon')">VER DETALLES</button>
+            </div>
+
+            <div class="card">
+                <img src="https://www.suplementosnutricionalessalta.com.ar/public/images/productos/754-rodillera-negra-7-mm-x-unidad-talle-l.webp" alt="Rodilleras 7mm" loading="lazy">
+                <h3>Rodilleras</h3>
+                <button class="btn" onclick="verProducto('rodilleras')">VER DETALLES</button>
+            </div>
+
+            <div class="card">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_734620-MLA98320362338_112025-F.webp" alt="Vendas Elásticas" loading="lazy">
+                <h3>Vendas</h3>
+                <button class="btn" onclick="verProducto('vendas')">VER DETALLES</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="sobre">
+        <h2>Sobre HardLift</h2>
+        <p>Diseñamos accesorios para quienes entrenan en serio. Calidad, resistencia y estilo en cada repetición.</p>
+    </section>
+
+    <div class="social-float">
+        <a href="https://wa.me/5493491507471" target="_blank" class="whatsapp" aria-label="Escribinos por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/hardlift_/" target="_blank" class="instagram" aria-label="Seguinos en Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

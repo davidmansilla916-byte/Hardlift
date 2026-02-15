@@ -1,18 +1,18 @@
+/* --- CONFIGURACIÓN GENERAL --- */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     color: white;
     background-color: #0e0e0e;
-
-    /* Patrón moderno mantenido */
+    /* Patrón moderno */
     background-image: 
         linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 40px 40px;
-    overflow-x: hidden; /* Evita scroll horizontal innecesario */
+    overflow-x: hidden;
 }
 
-/* HERO */
+/* --- HERO --- */
 .hero {
     height: 100vh;
     display: flex;
@@ -20,8 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px; /* Padding de seguridad para móviles */
-
+    padding: 20px;
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
                 url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48");
     background-size: cover;
@@ -29,7 +28,6 @@ body {
 }
 
 .hero h1 {
-    /* Cambio: Tamaño fluido. Mínimo 40px, óptimo 8vw, máximo 80px */
     font-size: clamp(40px, 8vw, 80px); 
     font-weight: 900;
     letter-spacing: 4px;
@@ -44,6 +42,7 @@ body {
     margin-top: 10px;
 }
 
+/* --- BOTONES --- */
 .btn {
     margin-top: 25px;
     padding: 12px 30px;
@@ -52,7 +51,9 @@ body {
     color: white;
     transition: 0.3s;
     font-weight: 600;
-    display: inline-block; /* Asegura que el padding funcione bien */
+    display: inline-block;
+    cursor: pointer;
+    background: transparent;
 }
 
 .btn:hover {
@@ -60,9 +61,9 @@ body {
     color: black;
 }
 
-/* PRODUCTOS */
+/* --- PRODUCTOS --- */
 .productos {
-    padding: 60px 5%; /* Reducido para mejor aprovechamiento de pantalla */
+    padding: 60px 5%;
     text-align: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -76,7 +77,6 @@ body {
 
 .grid {
     display: grid;
-    /* Mantenemos tu auto-fit, es la mejor opción */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
 }
@@ -86,7 +86,10 @@ body {
     border-radius: 15px;
     overflow: hidden;
     transition: 0.4s;
-    border: 1px solid rgba(255,255,255,0.05); /* Sutil borde para definir la card */
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
 }
 
 .card img {
@@ -100,6 +103,7 @@ body {
     font-weight: 600;
     letter-spacing: 1px;
     font-size: 1.2rem;
+    margin: 0;
 }
 
 .card:hover {
@@ -107,7 +111,7 @@ body {
     box-shadow: 0 10px 30px rgba(255,255,255,0.1);
 }
 
-/* SOBRE */
+/* --- SOBRE --- */
 .sobre {
     padding: 80px 10%;
     text-align: center;
@@ -124,14 +128,14 @@ body {
     margin: 20px auto;
     font-weight: 300;
     line-height: 1.6;
-    color: #ffffff; /* Cambiado a blanco para legibilidad, cámbialo a rojo si prefieres */
+    color: #ffffff;
 }
 
-/* CONTENEDOR FLOTANTE (Optimizado para móvil) */
+/* --- REDES SOCIALES FLOTANTES --- */
 .social-float {
     position: fixed;
     right: 15px;
-    bottom: 20px; /* Un poco más abajo en móviles */
+    bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -139,7 +143,7 @@ body {
 }
 
 .social-float a {
-    width: 55px; /* Ligeramente más pequeños para no estorbar tanto */
+    width: 55px;
     height: 55px;
     border-radius: 50%;
     display: flex;
@@ -152,26 +156,150 @@ body {
     transition: 0.3s ease;
 }
 
-/* WHATSAPP & INSTAGRAM MANTENIDOS */
 .social-float .whatsapp { background: #25D366; }
-.social-float .whatsapp:hover { background: #1ebe5d; transform: scale(1.1); }
 .social-float .instagram { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4); }
-.social-float .instagram:hover { transform: scale(1.1); }
+.social-float a:hover { transform: scale(1.1); }
 
-/* --- MEDIA QUERIES PARA DETALLES --- */
+/* --- CARRITO (BARRA LATERAL) --- */
+.cart-btn-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: black;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
+#cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4d4d;
+    color: white;
+    font-size: 12px;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    border: 2px solid #0e0e0e;
+}
+
+.cart-sidebar {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    width: 85%; /* No ocupa todo el ancho en móvil */
+    max-width: 380px; 
+    height: 100vh;
+    background: #111;
+    z-index: 3000; /* Siempre por encima */
+    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    padding: 30px;
+    border-left: 1px solid rgba(255,255,255,0.05);
+    box-shadow: -10px 0 50px rgba(0,0,0,0.9);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.cart-sidebar.active { right: 0; }
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #222;
+    padding-bottom: 15px;
+}
+
+#cart-items {
+    flex: 1;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+.cart-footer {
+    border-top: 1px solid #222;
+    padding-top: 20px;
+}
+
+.btn-checkout {
+    width: 100%;
+    padding: 15px;
+    background: white;
+    color: black;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-checkout:hover {
+    background: #ff4d4d;
+    color: white;
+}
+
+/* --- MODAL DE DETALLES --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 4000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background-color: #141414;
+    margin: 5vh auto;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 25px;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 35px;
+    color: #666;
+    cursor: pointer;
+}
+
+/* --- MEDIA QUERIES --- */
 @media (max-width: 600px) {
-    .grid {
-        grid-template-columns: 1fr; /* Una sola columna en móviles pequeños */
-        padding: 0 10px;
-    }
-    
-    .hero {
-        padding: 0 15px;
-    }
-
-    .social-float a {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-    }
+    .grid { grid-template-columns: 1fr; padding: 0 10px; }
+    .hero { padding: 0 15px; }
+    .social-float a { width: 50px; height: 50px; font-size: 20px; }
+    .cart-sidebar { width: 85%; } /* Mantiene el 15% libre para cerrar haciendo clic */
 }
